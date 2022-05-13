@@ -1,0 +1,31 @@
+.submit{
+    background-color: green;
+    border: green;
+}
+.trending{
+    background-color: red;
+    border: red;
+}
+.button{
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.87rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    font-weight: 400;
+    margin: 3px;
+}
+.search{
+    padding: 0.25rem 0.5rem;
+    margin: 3px;
+}
+.content{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.4rem;
+}
+hr{
+    margin: 1rem 0rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
