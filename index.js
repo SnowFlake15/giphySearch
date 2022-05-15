@@ -21,10 +21,6 @@ let trending = document.getElementById("trending");
 let buttons = document.getElementsByClassName("search_item");
 let submit = document.getElementById("submit");
 
-function activeBorder(item, color) {
-  item.style.border = `2px, solid, ${color}`;
-}
-
 function fetchData(val) {
   fetch(`${url}/search?q=${val}&limit=${limit}&api_key=${apiKey}&fmt=json`)
     .then((response) => response.json())
@@ -48,8 +44,6 @@ trending.onclick = function () {
       gifsBlock.render();
     });
   console.log(trending);
-  activeBorder(trending, "green");
-  trending.classList.add("border");
 };
 
 submit.onclick = function () {
