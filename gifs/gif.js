@@ -5,7 +5,6 @@ export class gifSection extends base{
         this.gifList = data;
     }
     _renderGif(obj){
-        // console.log('obj', obj)
         return`
         <div class"gif_item">
             <img src="${obj['images']['original']['url']}">
@@ -15,7 +14,6 @@ export class gifSection extends base{
         `
     }
     _renderGifsList(list){
-        // console.log(this.promise)
         return list.map((obj)=>{
             return this._renderGif(obj)
         }).join("");

@@ -1,5 +1,5 @@
-import {base} from "./common/base.js"
-export class addItem extends base{
+import {base} from "../common/base.js"
+export class searchItemSection extends base{
     itemList  = [];
     set setItemList(data){
         this.itemList = data;

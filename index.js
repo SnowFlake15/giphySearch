@@ -1,105 +1,63 @@
-import { addItem } from "./searchItems.js";
-let searchItems = [
-  "Internet Cats",
-  "Meme's",
-  "Typing",
-  "Space",
-  "Rick and Morty",
-];
+import { searchItemSection } from "./searchItems/searchItems.js";
+import { searchItemsData } from "./searchItems/searchItemsData.js";
 import { gifSection } from "./gifs/gif.js";
+
+import{url} from "./config/config.js"
+import{apiKey} from "./config/config.js"
+import{limit} from "./config/config.js"
+
 let searchItem = document.getElementById("searchItem");
-function renderItems() {
-  console.log(this.value);
-}
 let serachItemsID = document.getElementById("searchItems");
-let serchItemsBlock = new addItem();
-serchItemsBlock.setItemList = searchItems;
+let serchItemsBlock = new searchItemSection();
+serchItemsBlock.setItemList = searchItemsData;
 serchItemsBlock.id = serachItemsID;
 serchItemsBlock.render();
 
+let gifsID = document.getElementById("gifs");
+let gifsBlock = new gifSection();
+gifsBlock.id = gifsID;
+
 function fetchData(val) {
   fetch(
-    `https://api.giphy.com/v1/gifs/${val}?limit=10&api_key=aFFKTuSMjd6j0wwjpFCPXZipQbcnw3vB&fmt=json`
-  )
-    .then((response) => response.json())
-    .then((data) => console.log(data["data"]));
-}
-// console.log(document.getElementsByClassName("search_item"))
-let buttons = document.getElementsByClassName("search_item")
-for(let i=0; i<buttons.length;i++ ){
-    // console.log(buttons[i])
-    buttons[i].onclick= function(){
-        console.log('buttons[i].value')
-        fetch(
-            `https://api.giphy.com/v1/gifs/search?q=${buttons[i].value}&limit=10&api_key=aFFKTuSMjd6j0wwjpFCPXZipQbcnw3vB&fmt=json`
-          )
-            .then((response) => response.json())
-            .then((data) => {
-            //   console.log(data["data"]);
-              let gifsID = document.getElementById("gifs");
-              let gifsBlock = new gifSection();
-              gifsBlock.setItemList = data["data"];
-              gifsBlock.id = gifsID;
-              gifsBlock.render();
-            });
-    }
-}
-
-document.getElementById("trending").onclick = function () {
-  //   if (searchItem.value.length > 0) {
-  fetch(
-    `https://api.giphy.com/v1/gifs/trending?limit=10&api_key=aFFKTuSMjd6j0wwjpFCPXZipQbcnw3vB&fmt=json`
+    `${url}/search?q=${val}&limit=${limit}&api_key=${apiKey}&fmt=json`
   )
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data["data"]);
-      let gifsID = document.getElementById("gifs");
-      let gifsBlock = new gifSection();
       gifsBlock.setItemList = data["data"];
-      gifsBlock.id = gifsID;
       gifsBlock.render();
     });
-  //   }
+}
+let buttons = document.getElementsByClassName("search_item");
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].onclick = function () {
+    fetchData(buttons[i].value);
+  };
+}
+
+document.getElementById("trending").onclick = function () {
+  fetch(
+    `${url}/trending?limit=${limit}&api_key=${apiKey}&fmt=json`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      gifsBlock.setItemList = data["data"];
+      gifsBlock.render();
+    });
 };
 
 document.getElementById("submit").onclick = function () {
-  //   console.log(searchItem.value);
   if (searchItem.value.length > 0) {
-    searchItems.shift();
-    searchItems.push(searchItem.value);
-    // console.log(searchItems);
-    serchItemsBlock.setItemList = searchItems;
+    searchItemsData.shift();
+    searchItemsData.push(searchItem.value);
+    serchItemsBlock.setItemList = searchItemsData;
     serchItemsBlock.render();
-    fetch(
-      `https://api.giphy.com/v1/gifs/search?q=${searchItem.value}&limit=10&api_key=aFFKTuSMjd6j0wwjpFCPXZipQbcnw3vB&fmt=json`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data["data"]);
-        let gifsID = document.getElementById("gifs");
-        let gifsBlock = new gifSection();
-        gifsBlock.setItemList = data["data"];
-        gifsBlock.id = gifsID;
-        gifsBlock.render();
-      });
+
+    fetchData(searchItem.value);
   }
   let buttons = document.getElementsByClassName("search_item");
   for (let i = 0; i < buttons.length; i++) {
-    // console.log(buttons[i])
     buttons[i].onclick = function () {
-      console.log("buttons[i].value");
-      fetch(
-        `https://api.giphy.com/v1/gifs/search?q=${buttons[i].value}&limit=10&api_key=aFFKTuSMjd6j0wwjpFCPXZipQbcnw3vB&fmt=json`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          //   console.log(data["data"]);
-          let gifsID = document.getElementById("gifs");
-          let gifsBlock = new gifSection();
-          gifsBlock.setItemList = data["data"];
-          gifsBlock.id = gifsID;
-          gifsBlock.render();
-        });
+      fetchData(buttons[i].value);
     };
   }
 };
