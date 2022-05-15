@@ -29,3 +29,31 @@ hr{
     margin: 1rem 0rem;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+.search_items{
+    display: flex;
+    justify-content: center;
+}
+.search_item{
+    margin: 3px;
+}
+
+.gifs{
+    display: flex;
+    flex-wrap: wrap;
+}
+.gifs div{
+    height: 230px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+}
+.gifs img{
+    height: 200px;
+}
+.gifs h6{
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

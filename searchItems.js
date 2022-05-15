@@ -1,5 +1,4 @@
-import {base} from "common/base.js"
-let searchItems=["Internet Cats", "Meme's", "Typing", "Space", "Rick and Morty"];
+import {base} from "./common/base.js"
 export class addItem extends base{
     itemList  = [];
     set setItemList(data){
@@ -7,7 +6,7 @@ export class addItem extends base{
     }
     _renderItem(obj){
         return`
-        <button>${obj}</button>`
+        <button class="search_item">${obj}</button>`
     }
     _renderItemsList(list){
         return list.map((obj)=>{
