@@ -2,10 +2,9 @@ import { searchItemSection } from "./searchItems/searchItems.js";
 import { searchItemsData } from "./searchItems/searchItemsData.js";
 import { gifSection } from "./gifs/gif.js";
 
-import { url } from "./config/config.js";
-import { apiKey } from "./config/config.js";
-import { limit } from "./config/config.js";
-
+import { searchUrl } from "./config/config.js";
+import { trendingUrl } from "./config/config.js";
+import { params } from "./config/config.js";
 let searchItem = document.getElementById("searchItem");
 let serachItemsID = document.getElementById("searchItems");
 let serchItemsBlock = new searchItemSection();
@@ -22,7 +21,9 @@ let buttons = document.getElementsByClassName("search_item");
 let submit = document.getElementById("submit");
 
 function fetchData(val) {
-  fetch(`${url}/search?q=${val}&limit=${limit}&api_key=${apiKey}&fmt=json`)
+  fetch(
+    `${searchUrl}/search?q=${val}&limit=${params.limit}&api_key=${params.apiKey}&fmt=${params.fmt}`
+  )
     .then((response) => response.json())
     .then((data) => {
       gifsBlock.setItemList = data["data"];
@@ -37,13 +38,14 @@ for (let i = 0; i < buttons.length; i++) {
 }
 
 trending.onclick = function () {
-  fetch(`${url}/trending?limit=${limit}&api_key=${apiKey}&fmt=json`)
+  fetch(
+    `${trendingUrl}&limit=${params.limit}&api_key=${params.apiKey}&fmt=${params.fmt}`
+  )
     .then((response) => response.json())
     .then((data) => {
       gifsBlock.setItemList = data["data"];
       gifsBlock.render();
     });
-  console.log(trending);
 };
 
 submit.onclick = function () {
